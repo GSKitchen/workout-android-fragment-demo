@@ -2,6 +2,8 @@ package com.example.workout.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,6 +17,15 @@ import com.example.workout.dao.Workout;
 public class WorkoutDetailFragment extends Fragment {
 
     private int workoutId;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(savedInstanceState != null){
+            workoutId = (int) savedInstanceState.getLong("workoutId");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +47,11 @@ public class WorkoutDetailFragment extends Fragment {
             title.setText(workout.getName());
             description.setText(workout.getDescription());
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong("workoutId", workoutId);
     }
 
     public void setWorkoutId(int workoutId) {
